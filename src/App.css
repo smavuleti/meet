@@ -69,7 +69,7 @@ input[type="number"] {
 }
 
 .event {
-  padding: 10px 10px 35px;
+  padding: 10px;
   margin-bottom: 10px;
   text-align: left;
   border: 1px solid #ccc;
@@ -78,11 +78,18 @@ input[type="number"] {
 }
 
 .details-btn {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
+  position: absolute; 
+  right: 10px; 
+  transform: translateY(-50%); 
   padding: 5px 8px;
   border-radius: 4px;
   outline: none;
   cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.details-btn:hover {
+  background-color: #0056b3;
 }
