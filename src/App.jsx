@@ -17,34 +17,35 @@ const App = () => {
   }, [currentCity, currentNOE]);
 
   const fetchData = async () => {
-    const allEvents = await getEvents();
-    const filteredEvents =
-      currentCity === "See all cities"
-        ? allEvents
-        : allEvents.filter((event) => event.location === currentCity);
+    try {
+      const allEvents = await getEvents();
+      const filteredEvents =
+        currentCity === "See all cities"
+          ? allEvents
+          : allEvents.filter((event) => event.location === currentCity);
 
-    setEvents(filteredEvents.slice(0, currentNOE));
-    setAllLocations(extractLocations(allEvents));
+      setEvents(filteredEvents.slice(0, currentNOE));
+      setAllLocations(extractLocations(allEvents));
+    } catch (error) {
+      setErrorAlert("Failed to fetch events. Please try again later.");
+    }
   };
 
   return (
     <div className="App">
-      {/* Display the number of events on top */}
-      <h2 data-testid="event-count">
-        Displaying {events.length} of {currentNOE} events
-      </h2>
+      <h2>Displaying {events.length} of {currentNOE} events</h2>
 
-      {/* NumberOfEvents Component */}
       <NumberOfEvents
         setErrorAlert={setErrorAlert}
         currentNOE={currentNOE}
         setCurrentNOE={setCurrentNOE}
       />
 
-      {/* CitySearch Component */}
-      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <CitySearch
+        allLocations={allLocations}
+        setCurrentCity={setCurrentCity}
+      />
 
-      {/* EventList Component */}
       <EventList events={events} />
     </div>
   );
