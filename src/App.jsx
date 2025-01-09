@@ -33,8 +33,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2>Displaying {events.length} of {currentNOE} events</h2>
-
       <NumberOfEvents
         setErrorAlert={setErrorAlert}
         currentNOE={currentNOE}
