@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'; 
-import './App.css';
-import EventList from './components/EventList';
-import CitySearch from './components/CitySearch';
-import NumberOfEvents from './components/NumberOfEvents';
-import { extractLocations, getEvents } from './api';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import EventList from "./components/EventList";
+import CitySearch from "./components/CitySearch";
+import NumberOfEvents from "./components/NumberOfEvents";
+import { extractLocations, getEvents } from "./api";
 
 const App = () => {
   const [events, setEvents] = useState([]);
@@ -18,9 +18,10 @@ const App = () => {
 
   const fetchData = async () => {
     const allEvents = await getEvents();
-    const filteredEvents = currentCity === "See all cities"
-      ? allEvents
-      : allEvents.filter(event => event.location === currentCity);
+    const filteredEvents =
+      currentCity === "See all cities"
+        ? allEvents
+        : allEvents.filter((event) => event.location === currentCity);
 
     setEvents(filteredEvents.slice(0, currentNOE));
     setAllLocations(extractLocations(allEvents));
@@ -28,20 +29,25 @@ const App = () => {
 
   return (
     <div className="App">
-      <CitySearch 
-        allLocations={allLocations} 
-        setCurrentCity={setCurrentCity} 
-      />
-      <EventList 
-        events={events} 
-      />
-       <NumberOfEvents 
+      {/* Display the number of events on top */}
+      <h2 data-testid="event-count">
+        Displaying {events.length} of {currentNOE} events
+      </h2>
+
+      {/* NumberOfEvents Component */}
+      <NumberOfEvents
         setErrorAlert={setErrorAlert}
         currentNOE={currentNOE}
         setCurrentNOE={setCurrentNOE}
       />
+
+      {/* CitySearch Component */}
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+
+      {/* EventList Component */}
+      <EventList events={events} />
     </div>
   );
-}
+};
 
 export default App;
