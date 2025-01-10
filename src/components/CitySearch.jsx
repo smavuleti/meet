@@ -20,7 +20,8 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
   const handleItemClicked = (value) => {
     setQuery(value);
     setShowSuggestions(false);
-    setCurrentCity(value); // Update the selected city in the parent component
+    setCurrentCity(value);
+   // Update the selected city in the parent component
   };
 
   return (

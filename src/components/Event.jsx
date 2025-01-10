@@ -11,10 +11,11 @@ const Event = ({ event }) => {
                 <p>{event.created}</p>
             </div>
             {showDetails ? (
-                <div>
+                <div className="eventDetails">
                     <p>{event.description}</p>
                 </div>
             ) : null}
+            
             <button 
                 className="details-btn"
                 onClick={() => setShowDetails(!showDetails)}

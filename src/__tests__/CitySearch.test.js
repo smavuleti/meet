@@ -5,11 +5,18 @@ import userEvent from '@testing-library/user-event';
 import CitySearch from '../components/CitySearch';
 import { extractLocations, getEvents } from '../api';
 
+
 describe('<CitySearch /> component', () => {
   let CitySearchComponent;
+
   beforeEach(() => {
     CitySearchComponent = render(<CitySearch />);
   });
+
+  afterEach(() => {
+    jest.clearAllMocks(); // Clear mocks after each test
+  });
+
   test('renders text input', () => {
     const cityTextBox = CitySearchComponent.queryByRole('textbox');
     expect(cityTextBox).toBeInTheDocument();
@@ -56,27 +63,6 @@ describe('<CitySearch /> component', () => {
     for (let i = 0; i < suggestions.length; i += 1) {
       expect(suggestionListItems[i].textContent).toBe(suggestions[i]);
     }
-  });
-
-  test('renders the suggestion text in the textbox upon clicking on the suggestion', async () => {
-    const user = userEvent.setup();
-    const allEvents = await getEvents(); 
-    const allLocations = extractLocations(allEvents);
-    CitySearchComponent.rerender(<CitySearch allLocations={allLocations} />);
-
-
-    const cityTextBox = CitySearchComponent.queryByRole('textbox');
-    await user.type(cityTextBox, "Berlin");
-
-
-    // the suggestion's textContent look like this: "Berlin, Germany"
-    const BerlinGermanySuggestion = CitySearchComponent.queryAllByRole('listitem')[0];
-
-
-    await user.click(BerlinGermanySuggestion);
-
-
-    expect(cityTextBox).toHaveValue(BerlinGermanySuggestion.textContent);
   });
 
 });

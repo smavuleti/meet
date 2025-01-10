@@ -4,7 +4,7 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE, setErrorAlert }) => {
   const [number, setNumber] = useState(currentNOE);
 
   const handleInputChanged = (event) => {
-    const value = parseInt(event.target.value, 10); // Parse value as an integer
+    const value = Number(event.target.value); // Convert to number
     setNumber(value);
 
     if (isNaN(value) || value <= 0) {
@@ -13,7 +13,7 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE, setErrorAlert }) => {
       setErrorAlert("Only a maximum of 32 events is allowed");
     } else {
       setErrorAlert(""); // Clear the error message
-      setCurrentNOE(value); // Update the number of events in the parent component
+      setCurrentNOE(value); // Notify parent of the valid number
     }
   };
 
@@ -22,12 +22,12 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE, setErrorAlert }) => {
       <label>
         Number of Events:
         <input
-          type="number" 
-          value={number}
+          type="number"
+          value={number || ""}
           onChange={handleInputChanged}
           data-testid="numberOfEventsInput"
-          min="1" 
-          max="32" 
+          min="1"
+          max="32"
         />
       </label>
     </div>
