@@ -5,6 +5,7 @@ import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
 import { extractLocations, getEvents } from './api';
 import { InfoAlert, ErrorAlert, WarningAlert } from './components/Alert';
+import CityEventsChart from './components/CityEventsChart';
 
 const App = () => {
   const [events, setEvents] = useState([]);
@@ -37,6 +38,9 @@ const App = () => {
 
     setEvents(filteredEvents.slice(0, currentNOE));
     setAllLocations(extractLocations(allEvents));
+    //console.log("Fetched events:", allEvents);
+//console.log("Filtered events:", filteredEvents);
+//console.log("Extracted locations:", extractLocations(allEvents));
   };
 
     // This function updates the info alert
@@ -62,6 +66,7 @@ const App = () => {
         currentNOE={currentNOE}
         setCurrentNOE={setCurrentNOE}
       />
+      <CityEventsChart allLocations={allLocations} events={events} />
       <EventList 
         events={events} 
       />
